@@ -8,5 +8,5 @@ exports.findById = (data = {}) => {
 }
 
 exports.getList = (data = {}) => {
-    return knex('tb_user').select('tb_user.*')
+    return knex('tb_country').select('tb_country.*')
 }

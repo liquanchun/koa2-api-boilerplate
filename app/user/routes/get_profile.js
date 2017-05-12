@@ -16,7 +16,6 @@ router.get('/user/:user_id', validate, getProfile)
 
 
 async function validate(ctx, next){
-    // checking parameters type
     await validator({
         properties: {
             user_id: { 
