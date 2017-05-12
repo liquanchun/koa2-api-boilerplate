@@ -11,7 +11,12 @@ module.exports = async (ctx, next) => {
         }
         else{
             ctx.status = 500;
-            ctx.body = err.stack;  // For production replace with 'Internal Server Error'
+            ctx.body = {
+                errors: [{
+                    message: err.message,
+                    stack: err.stack  // remove in production
+                }]
+            }
         }
         ctx.app.emit('error', err, ctx);
     }

@@ -13,7 +13,6 @@ module.exports = function(rules, data){
     var validator = new ZSchema();
     return new Promise((resolve, reject) => {
         validator.validate(data, rules, function (err, valid) {
-            console.log('ended validation')
             if(valid){
                 resolve()
             }

@@ -20,6 +20,15 @@ exports.findById = (data = {}) => {
     return knex('tb_user').select('tb_user.*').where('id', data.id).first()
 }
 
+exports.findProfileById = (data = {}) => {
+    if(!data.id) throw new ModelError('Id must be profided on find by id operation')
+    return knex('tb_user')
+        .select('tb_user.*', knex.raw('row_to_json(tb_country) as country'))
+        .leftJoin('tb_country', 'tb_country.id', '=', 'tb_user.country_id')
+        .where('tb_user.id', data.id)
+        .first()
+}
+
 exports.getList = (data = {}) => {
     return knex('tb_user').select('tb_user.*')
 }

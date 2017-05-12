@@ -9,13 +9,13 @@ module.exports = async(ctx, next) => {
     if (token) {
         try{
             decoded = jwt.verify(token, config.secret)
-            let user = await User.find({
+            let user = await User.findById({
                 id: decoded.id
             })
             
             if(user && user.id){
                 ctx.currentUser = user
-                next()
+                await next()
             }
             else{
                 throw new Unauthorized('Missing User')
@@ -25,8 +25,11 @@ module.exports = async(ctx, next) => {
             if(err.name == 'TokenExpiredError'){
                 throw new Unauthorized('Token Expired')
             }
+            else if(err.name == 'JsonWebTokenError'){
+                throw new Unauthorized('Invalid Token')
+            }
             else{
-                throw new Unauthorized('Unauthorized Request')
+                throw err
             }
         }
     }

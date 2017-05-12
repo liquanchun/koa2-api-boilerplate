@@ -1,14 +1,24 @@
 const router = require('koa-router')();
-const User = require('../model')
 let validator = require('../../../libraries/validator')
 let auth = require('../../../middlewares/auth')
+let _ = require('lodash')
+
+const User = require('../model')
+const Country = require('../../country/model')
 
 async function getMyProfile(ctx, next){
-    let user = await User.findById({
-        id: ctx.currentUser.id
-    })
+    let user = ctx.currentUser
+    user.country = await Country.findById({id: user.country_id})
 
-    ctx.body = user
+    ctx.body = _.pick(user, [
+        'id',
+        'first_name',
+        'last_name',
+        'email',
+        'password',
+        'user_name',
+        'country'
+    ])
 }
 
 router.get('/me/profile', auth, getMyProfile)

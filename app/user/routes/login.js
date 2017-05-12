@@ -28,13 +28,13 @@ async function validate(ctx, next){
         required: ['email', 'password']
     }, ctx.request.body)
 
-    await next(ctx, next);
+    await next();
 }
 
 async function login(ctx, next){
     let user = await User.login({
-        email: ctx.request.body.email
-        
+        email: ctx.request.body.email,
+        password: ctx.request.body.password
     })
 
     if(user){
@@ -50,7 +50,8 @@ async function login(ctx, next){
         'last_name',
         'email',
         'user_name',
-        'country_id'
+        'country_id',
+        'token'
     ])
 }
 
