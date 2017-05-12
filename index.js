@@ -15,9 +15,9 @@ app.use(bodyParser());
 app.use(errorHandler);
 
 // set routes
-fs.readdirSync('./app').filter( file => fs.statSync(path.join('./app', file)).isDirectory()).map(m => {
-    fs.readdirSync('./app/' + m + '/routes').filter( file => fs.statSync(path.join('./app/' + m + '/routes', file)).isFile()).map(r => {
-        app.use(require('./app/' + m + '/routes/' + r).routes());
+fs.readdirSync('./app').filter( file => fs.statSync(path.join('./app', file)).isDirectory()).map(moduleName => {
+    fs.readdirSync('./app/' + moduleName + '/routes').filter( file => fs.statSync(path.join('./app/' + moduleName + '/routes', file)).isFile()).map(route => {
+        app.use(require('./app/' + moduleName + '/routes/' + route).routes());
     })
 });
 
