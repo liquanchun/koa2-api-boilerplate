@@ -1,6 +1,6 @@
-<h1>Basc API made on KoaJS 2</h1>
+<h2>Basc API made on KoaJS 2</h2>
 
-<h2>Installation</h2>
+<h3>Installation</h3>
 
 ```
 git clone https://github.com/valera-shulghin/koa2-api-boilerplate
@@ -9,14 +9,14 @@ npm start
 open http://localhost:3000/apidoc/
 ```
 
-<h2>Requirements</h2>
+<h3>Requirements</h3>
 
 <ul>
     <li>NodeJS >= 7.6</li>
 </ul>
 
 
-<h2>Features</h2>
+<h3>Features</h3>
 <ul>
     <li>KoaJS 2</li>
     <li>Automatic documentation generation with gulp</li>
@@ -25,7 +25,7 @@ open http://localhost:3000/apidoc/
 </ul>
 
 
-<h2>Structure</h2>
+<h3>Structure</h3>
 
 ```
 ├── app                               # Server configuration settings
