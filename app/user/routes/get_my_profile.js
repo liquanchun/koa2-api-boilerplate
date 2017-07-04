@@ -1,5 +1,4 @@
 const router = require('koa-router')();
-let validator = require('../../../libraries/validator')
 let auth = require('../../../middlewares/auth')
 let _ = require('lodash')
 

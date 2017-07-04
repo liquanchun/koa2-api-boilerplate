@@ -22,9 +22,9 @@
     "koa-bodyparser": "^4.2.0",
     "koa-router": "^7.1.1",
     "koa-static": "^3.0.0",
+    "koa-validate": "^1.0.7",
     "lodash": "^4.17.4",
     "pg": "^6.1.5",
-    "sha1": "^1.1.1",
-    "z-schema": "^3.18.2"
+    "sha1": "^1.1.1"
   }
 }

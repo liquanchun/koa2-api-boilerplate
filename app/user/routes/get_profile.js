@@ -1,6 +1,5 @@
 const router = require('koa-router')();
 const User = require('../model')
-const validator = require('../../../libraries/validator')
 const BadRequest = require('../../../libraries/error').BadRequest
 let _ = require('lodash')
 
@@ -16,25 +15,25 @@ router.get('/user/:user_id', validate, getProfile)
 
 
 async function validate(ctx, next){
-    await validator({
-        properties: {
-            user_id: { 
-                type: 'number',
-                format: 'user_id'
-            }
-        },
-        required: ['user_id'],
-    }, { user_id: parseInt(ctx.params.user_id) } )
+  ctx.checkParams('user_id').notEmpty('User id is required').isInt('User id must be a number')
+  
+  if(ctx.errors) throw new BadRequest(ctx.errors);
 
-    await next();
+  let user = await User.findProfileById({ id: ctx.params.user_id })
+  if(user) {
+    ctx.userProfile = user
+  }
+  else{
+    throw new BadRequest([{
+      user_id: 'Invalid user id'
+    }])
+  }
+
+  await next();
 }
 
 async function getProfile(ctx, next){
-    let user = await User.findProfileById({ id: ctx.params.user_id })
-
-    console.log(user)
-    
-    ctx.body = _.pick(user, [
+    ctx.body = _.pick(ctx.userProfile, [
         'id',
         'first_name',
         'last_name',

@@ -1,8 +1,8 @@
 const router = require('koa-router')();
 const User = require('../model')
-const validator = require('../../../libraries/validator')
 const jwt = require('../../../libraries/jwt')
-const Unauthorized = require('../../../libraries/error').Unauthorized
+
+const {BadRequest, Unauthorized} = require('../../../libraries/error')
 let _ = require('lodash')
 
 
@@ -19,16 +19,12 @@ router.post('/login', validate, login)
 
 
 async function validate(ctx, next){
-    await validator({
-        type: 'object',
-        properties: {
-            email: { type: 'string'},
-            password: { type: 'string'},
-        },
-        required: ['email', 'password']
-    }, ctx.request.body)
+  ctx.checkBody('email').notEmpty('Email field is required').len(4, 50, 'Email length must be between 4 and 50 characters')
+  ctx.checkBody('password').notEmpty('Password field is required').len(4, 20, 'Password length must be between 4 and 20 characters')
 
-    await next();
+  if(ctx.errors) throw new BadRequest(ctx.errors);
+
+  await next();
 }
 
 async function login(ctx, next){
