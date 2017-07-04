@@ -12,7 +12,7 @@ open http://localhost:3000/apidoc/
 <h3>Requirements</h3>
 
 <ul>
-    <li>NodeJS >= 7.6</li>
+    <li>NodeJS >= 7.6.0</li>
 </ul>
 
 
@@ -32,7 +32,14 @@ open http://localhost:3000/apidoc/
 │   ├── country                       # Environment specific config
 │   │   ├── routes
 |   |   |   └── get_countries_list.js # Get countries list
-|   |   ├── model.js                  # Country database operations
+|   |   └── model.js                  # Country database operations
+|   └── user
+|   |   ├── routes
+|   |   |   ├── get_my_profile.js     # Get current user profile
+|   |   |   ├── get_profile.js        # Get user profile by id
+|   |   |   ├── get_users_list.js     # Get list of users
+|   |   |   └── login.js              # User login
+|   |   └── model.js                  # User database operations
 ├── libraries
 |   ├── error.js                      # Error types definition (ex. Unauthorized or BadRequest)
 |   ├── error_handler.js              # Koa2 middleware for error handle
@@ -46,5 +53,5 @@ open http://localhost:3000/apidoc/
 ├── gulpfile.js                       # Gulp tasks configuration
 ├── index.js                          # API startup file
 ├── package.json                      # Packages list
-└── readme.md                         # 
+└── readme.md                         # Github documentation
 ```
