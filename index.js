@@ -2,14 +2,20 @@ const Koa = require('koa');
 const app = new Koa();
 const fs = require('fs');
 const path = require('path');
-const bodyParser = require('koa-body');
 const errorHandler = require('./libraries/error_handler')
 
 // static files
 app.use(require('koa-static')('./public'));
 
 // request parameters parser
-app.use(bodyParser());
+app.use(require('koa-body')({
+    formidable:{
+        uploadDir: __dirname + '/public/uploads',
+        keepExtensions: true
+    },    //This is where the files would come
+    multipart: true,
+    urlencoded: true,
+}));
 
 // error handler
 app.use(errorHandler);
@@ -23,5 +29,8 @@ fs.readdirSync('./app').filter( file => fs.statSync(path.join('./app', file)).is
         app.use(require('./app/' + moduleName + '/routes/' + route).routes());
     })
 });
+
+let string = require('./libraries/string')
+console.log(string.generatePasswordHash('test'))
 
 app.listen(3000);
