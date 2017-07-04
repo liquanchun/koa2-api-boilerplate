@@ -3,10 +3,10 @@
 <h2>Installation</h2>
 
 ```
-    git clone https://github.com/valera-shulghin/koa2-boilerplate/blob/master/index.js
-    npm install
-    npm start
-    open http://localhost:3000/apidoc/
+git clone https://github.com/valera-shulghin/koa2-boilerplate/blob/master/index.js
+npm install
+npm start
+open http://localhost:3000/apidoc/
 ```
 
 <h2>Requirements</h2>
