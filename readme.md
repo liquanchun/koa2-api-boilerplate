@@ -28,13 +28,13 @@ open http://localhost:3000/apidoc/
 <h3>Structure</h3>
 
 ```
-├── app                               # Server configuration settings
-│   ├── country                       # Environment specific config
-│   │   ├── routes
+├── app                               # API files
+│   ├── country                       # Country module
+│   │   ├── routes                    # Country module routes
 |   |   |   └── get_countries_list.js # Get countries list
 |   |   └── model.js                  # Country database operations
-|   └── user
-|   |   ├── routes
+|   └── user                          # User module
+|   |   ├── routes                    # User module routes
 |   |   |   ├── get_my_profile.js     # Get current user profile
 |   |   |   ├── get_profile.js        # Get user profile by id
 |   |   |   ├── get_users_list.js     # Get list of users
