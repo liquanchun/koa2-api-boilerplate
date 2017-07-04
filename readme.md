@@ -26,6 +26,7 @@
 
 
 <h2>Structure</h2>
+
 ```
 ├── app                               # Server configuration settings
 │   ├── country                       # Environment specific config
