@@ -21,4 +21,5 @@
     <li>KoaJS 2</li>
     <li>Automatic documentation generation with gulp</li>
     <li>PostgreSQL database</li>
+    <li>Nice and clean error handler</li>
 </ul>
