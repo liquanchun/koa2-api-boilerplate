@@ -43,7 +43,7 @@ open http://localhost:3000/apidoc/ - slash at the end is required
 |   |   └── model.js                        # User database operations
 |   └── file
 |   |   ├── routes                          # File module routes
-|   |   |   ├── upload_single_file.js       # Upload single file
+|   |   |   └── upload_single_file.js       # Upload single file
 ├── libraries
 |   ├── error.js                            # Error types definition (ex. Unauthorized or BadRequest)
 |   ├── error_handler.js                    # Koa2 middleware for error handle
