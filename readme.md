@@ -26,6 +26,7 @@
 
 
 <h2>Structure</h2>
+```
 ├── app                               # Server configuration settings
 │   ├── country                       # Environment specific config
 │   │   ├── routes
@@ -45,3 +46,4 @@
 ├── index.js                          # API startup file
 ├── package.json                      # Packages list
 └── readme.md                         # 
+```
