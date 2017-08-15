@@ -1,6 +1,6 @@
 const router = require('koa-router')();
-const User = require('../model')
-const BadRequest = require('../../../libraries/error').BadRequest
+const User = require('app/user/model')
+const BadRequest = require('libraries/error').BadRequest
 let _ = require('lodash')
 
 

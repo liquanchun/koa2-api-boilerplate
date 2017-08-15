@@ -4,6 +4,8 @@ const fs = require('fs');
 const path = require('path');
 const errorHandler = require('./libraries/error_handler')
 
+require('rootpath')();
+
 // static files
 app.use(require('koa-static')('./public'));
 

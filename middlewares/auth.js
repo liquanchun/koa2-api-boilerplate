@@ -1,7 +1,7 @@
-let User = require('../app/user/model')
+let User = require('app/user/model')
 let jwt = require('jsonwebtoken')
-let config = require('../env').jwt
-let Unauthorized = require('../libraries/error').Unauthorized
+let config = require('env').jwt
+let Unauthorized = require('libraries/error').Unauthorized
 
 module.exports = async(ctx, next) => {
     var token = ctx.headers.token;

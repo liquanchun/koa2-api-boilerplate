@@ -1,6 +1,6 @@
-let knex = require('../../libraries/knex')
-let string = require('../../libraries/string')
-let ModelError = require('../../libraries/error').ModelError
+let knex = require('libraries/knex')
+let string = require('libraries/string')
+let ModelError = require('libraries/error').ModelError
 
 exports.findById = (data = {}) => {
     if(!data.id) throw new ModelError('Id must be provided on find by id operation')

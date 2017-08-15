@@ -1,9 +1,9 @@
 const router = require('koa-router')();
-const auth = require('../../../middlewares/auth')
+const auth = require('middlewares/auth')
 const path = require('path')
-const config = require('../../../env')
+const config = require('env')
 
-let BadRequest = require('../../../libraries/error').BadRequest
+let BadRequest = require('libraries/error').BadRequest
 
 /**
  * @api {post} /upload-file Upload File

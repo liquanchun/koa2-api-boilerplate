@@ -1,6 +1,6 @@
-let knex = require('../../libraries/knex')
-let string = require('../../libraries/string')
-let ModelError = require('../../libraries/error').ModelError
+let knex = require('libraries/knex')
+let string = require('libraries/string')
+let ModelError = require('libraries/error').ModelError
 
 exports.login = (data = {}) => {
     if(!data.email) throw new ModelError('Email must be provided on login operation.')

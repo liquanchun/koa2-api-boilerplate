@@ -1,9 +1,9 @@
 const router = require('koa-router')();
-let auth = require('../../../middlewares/auth')
+let auth = require('middlewares/auth')
 let _ = require('lodash')
 
-const User = require('../model')
-const Country = require('../../country/model')
+const User = require('app/user/model')
+const Country = require('app/country/model')
 
 async function getMyProfile(ctx, next){
     let user = ctx.currentUser

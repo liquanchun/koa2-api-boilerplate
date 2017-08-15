@@ -1,8 +1,8 @@
 const router = require('koa-router')();
-const User = require('../model')
-const jwt = require('../../../libraries/jwt')
+const User = require('app/user/model')
+const jwt = require('libraries/jwt')
 
-const {BadRequest, Unauthorized} = require('../../../libraries/error')
+const {BadRequest, Unauthorized} = require('libraries/error')
 let _ = require('lodash')
 
 
