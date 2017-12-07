@@ -33,19 +33,14 @@ open http://localhost:3000/apidoc/ - slash at the end is required
 ```
 ├── app                                     # API files
 │   ├── country                             # Country module
-│   │   ├── routes                          # Country module routes
-|   |   |   └── get_countries_list.js       # Get countries list
-|   |   └── model.js                        # Country database operations
+|   |   └── get_countries_list.js           # Get countries list
 |   ├── user                                # User module
-|   |   ├── routes                          # User module routes
-|   |   |   ├── get_my_profile.js           # Get current user profile
-|   |   |   ├── get_profile.js              # Get user profile by id
-|   |   |   ├── get_users_list.js           # Get list of users
-|   |   |   └── login.js                    # User login
-|   |   └── model.js                        # User database operations
+|   |   ├── get_my_profile.js               # Get current user profile
+|   |   ├── get_profile.js                  # Get user profile by id
+|   |   ├── get_users_list.js               # Get list of users
+|   |   └── login.js                        # User login
 |   └── file
-|   |   ├── routes                          # File module routes
-|   |   |   └── upload_single_file.js       # Upload single file
+|   |   └── upload_single_file.js           # Upload single file
 ├── libraries
 |   ├── error.js                            # Error types definition (ex. Unauthorized or BadRequest)
 |   ├── error_handler.js                    # Koa2 middleware for error handle
@@ -54,6 +49,9 @@ open http://localhost:3000/apidoc/ - slash at the end is required
 |   └── string.js                           # String manipulations (ex. Password encription)
 ├── middlewares
 |   └── auth.js                             # JWT auth Koa2 middleware
+├── models                                  # database operations
+|   └── country.js                          # country table operations
+|   ├── user.js                             # user table operations
 ├── .gitignode
 ├── env.json                                # API Config file
 ├── gulpfile.js                             # Gulp tasks configuration
