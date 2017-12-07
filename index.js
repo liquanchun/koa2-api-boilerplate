@@ -27,8 +27,8 @@ require('koa-validate')(app);
 
 // set routes
 fs.readdirSync('./app').filter( file => fs.statSync(path.join('./app', file)).isDirectory()).map(moduleName => {
-    fs.readdirSync('./app/' + moduleName + '/routes').filter( file => fs.statSync(path.join('./app/' + moduleName + '/routes', file)).isFile()).map(route => {
-        app.use(require('./app/' + moduleName + '/routes/' + route).routes());
+    fs.readdirSync('./app/' + moduleName).filter( file => fs.statSync(path.join('./app/' + moduleName, file)).isFile()).map(route => {
+        app.use(require('./app/' + moduleName + '/' + route).routes());
     })
 });
 

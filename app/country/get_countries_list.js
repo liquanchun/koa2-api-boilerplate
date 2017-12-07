@@ -1,5 +1,5 @@
 let router = require('koa-router')();
-let Country = require('app/country/model')
+let Country = require('models/country')
 let auth = require('middlewares/auth')
 
 

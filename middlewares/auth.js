@@ -1,4 +1,4 @@
-let User = require('app/user/model')
+let User = require('models/user')
 let jwt = require('jsonwebtoken')
 let config = require('env').jwt
 let Unauthorized = require('libraries/error').Unauthorized

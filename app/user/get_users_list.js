@@ -1,5 +1,5 @@
 var router = require('koa-router')();
-let User = require('app/user/model')
+let User = require('models/user')
 let auth = require('middlewares/auth')
 
 router.get('/users', async(ctx, next) => {
