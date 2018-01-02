@@ -1,7 +1,7 @@
 const router = require('koa-router')();
-const User = require('models/user')
-const BadRequest = require('libraries/error').BadRequest
-let _ = require('lodash')
+const User = require('../../models/user')
+const { BadRequest } = require('../../libraries/error')
+const _ = require('lodash')
 
 
 /**
@@ -11,36 +11,29 @@ let _ = require('lodash')
  * @apiName GetUserProfile
  * @apiSampleRequest /user/:user_id
  */
-router.get('/user/:user_id', validate, getProfile)
-
-
-async function validate(ctx, next){
+router.get('/user/:user_id', async (ctx) => {
   ctx.checkParams('user_id').notEmpty('User id is required').isInt('User id must be a number')
-  
-  if(ctx.errors) throw new BadRequest(ctx.errors);
 
-  let user = await User.findProfileById({ id: ctx.params.user_id })
-  if(user) {
+  if (ctx.errors) throw new BadRequest(ctx.errors);
+
+  let user = await User.findProfileById(ctx.params.user_id)
+  if (user) {
     ctx.userProfile = user
   }
-  else{
+  else {
     throw new BadRequest([{
       user_id: 'Invalid user id'
     }])
   }
 
-  await next();
-}
-
-async function getProfile(ctx, next){
-    ctx.body = _.pick(ctx.userProfile, [
-        'id',
-        'first_name',
-        'last_name',
-        'email',
-        'user_name',
-        'country'
-    ])
-}
+  ctx.body = _.pick(ctx.userProfile, [
+    'id',
+    'first_name',
+    'last_name',
+    'email',
+    'user_name',
+    'country'
+  ])
+})
 
 module.exports = router

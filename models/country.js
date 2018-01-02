@@ -1,12 +1,8 @@
-let knex = require('libraries/knex')
-let string = require('libraries/string')
-let ModelError = require('libraries/error').ModelError
+const knex = require('../libraries/knex')
 
-exports.findById = (data = {}) => {
-    if(!data.id) throw new ModelError('Id must be provided on find by id operation')
-    return knex('tb_country').select('tb_country.*').where('id', data.id).first()
-}
+exports.findOne = where => knex('tb_country')
+  .select('tb_country.*')
+  .where(where)
+  .first()
 
-exports.getList = (data = {}) => {
-    return knex('tb_country').select('tb_country.*')
-}
+exports.getList = () => knex('tb_country').select('tb_country.*')

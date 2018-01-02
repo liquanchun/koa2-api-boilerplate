@@ -1,9 +1,9 @@
 const router = require('koa-router')();
-const auth = require('middlewares/auth')
+const auth = require('../../middlewares/auth')
 const path = require('path')
-const config = require('env')
+const config = require('../../env')
 
-let BadRequest = require('libraries/error').BadRequest
+const { BadRequest } = require('../../libraries/error')
 
 /**
  * @api {post} /upload-file Upload File
@@ -15,31 +15,27 @@ let BadRequest = require('libraries/error').BadRequest
 
 router.post('/upload-file', auth, validateFile, uploadFile);
 
-async function validateFile(ctx, next){
-
-    if(ctx.headers['content-type'].includes('multipart/form-data;')){
-        // content type is for data, so validate the file
-        await ctx.checkFile('file').notEmpty('File field is required').suffixIn(['jpg', 'jpeg', 'png']).size(1, 1024*1024);
-        if(ctx.errors) throw new BadRequest(ctx.errors)
-        await next()
-    }
-    else{
-        throw new BadRequest([{
-            'Content-Type': 'Content type must be multipart/form-data'
-        }])
-    }
+async function validateFile(ctx, next) {
+  if (ctx.headers['content-type'].includes('multipart/form-data;')) {
+    // content type is for data, so validate the file
+    await ctx.checkFile('file').notEmpty('File field is required').suffixIn(['jpg', 'jpeg', 'png']).size(1, 1024 * 1024);
+    if (ctx.errors) throw new BadRequest(ctx.errors)
+    await next()
+  }
+  else {
+    throw new BadRequest([{
+      'Content-Type': 'Content type must be multipart/form-data'
+    }])
+  }
 }
 
-async function uploadFile(ctx, next)
-{
-    let fileName = path.basename(ctx.request.body.files.file.path)
+async function uploadFile(ctx) {
+  const fileName = path.basename(ctx.request.body.files.file.path)
 
-    // send file location
-    ctx.body = {
-        location: config.server.url + '/uploads/' + fileName
-    }
+  // send file location
+  ctx.body = {
+    location: `${config.server.url}/uploads/${fileName}`
+  }
 }
-
-
 
 module.exports = router

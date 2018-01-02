@@ -1,9 +1,8 @@
-var router = require('koa-router')();
-let User = require('models/user')
-let auth = require('middlewares/auth')
+const router = require('koa-router')();
+const User = require('../../models/user')
 
-router.get('/users', async(ctx, next) => {
-    ctx.body = await User.get()
+router.get('/users', async (ctx) => {
+  ctx.body = await User.getList()
 })
 
 module.exports = router
