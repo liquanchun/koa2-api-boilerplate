@@ -22,9 +22,10 @@ open http://localhost:3000/apidoc/ - slash at the end is required
     <li>Automatic documentation generation with gulp</li>
     <li>PostgreSQL database</li>
     <li>Nice and clean error handler</li>
-    <li>Single file upload</li>
+    <li>Single file upload example</li>
     <li>Validator</li>
     <li>Auth with JWT</li>
+    <li>ESLint with airbnb rules</li>
 </ul>
 
 
