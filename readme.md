@@ -60,3 +60,30 @@ open http://localhost:3000/apidoc/ - slash at the end is required
 ├── package.json
 └── readme.md
 ```
+
+<h3>Errors Handling Examples</h3>
+
+<h4>1. Validation</h4>
+Endpoint: Get user profile (GET /users/:id)
+```
+ctx.checkParams('id).notEmpty().isInt()
+if (ctx.errors) throw new BadRequest(ctx.errors)
+
+const user = await User.findOne({ id: ctx.params.id })
+if (!user) throw new BadRequest([{ id: 'Invalid user id' }])
+```
+
+Endpoint: Create user (POST /users)
+```
+ctx.checkBody('email').notEmpty().isEmail()
+ctx.checkBody('address').empty().len(1, 255)
+
+if (ctx.errors) throw new BadRequest(ctx.errors)
+```
+
+<h4>User Access</h4>
+```
+if (!userHasAccessToThis()) throw new Forbidden("You don't have access to this module")
+```
+
+<b>Note:</b> All errors (BadRequest, Forbidden, etc) are defined in ```/libraries/error``` file. From currently defined errors, only BadRequest is special, pecause it uses the error object returned by ```koa-validate``` library, and transforms it to standart error object output.
