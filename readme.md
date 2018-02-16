@@ -58,7 +58,20 @@ if (ctx.errors) throw new BadRequest(ctx.errors)
 if (!userHasAccessToThis()) throw new Forbidden("You don't have access to this module")
 ```
 
-<b>Note:</b> All errors (BadRequest, Forbidden, etc) are defined in ```/libraries/error``` file. From currently defined errors, only BadRequest is special, pecause it uses the error object returned by ```koa-validate``` library, and transforms it to standart error object output.
+<b>Note:</b> All errors (BadRequest, Forbidden, etc) are defined in `/libraries/error` file.
+
+Request with errors is returned like this: 
+
+```javascript
+{
+    "errors": [
+        {
+            "field": "email",
+            "message": "The email field is required"
+        }
+    ]
+}
+```
 
 
 
