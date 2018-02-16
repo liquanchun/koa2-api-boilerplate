@@ -26,12 +26,7 @@ router.post('/login', async (ctx) => {
     password: string.generatePasswordHash(ctx.request.body.password)
   })
 
-  if (user) {
-    user.token = jwt.encode(user)
-  }
-  else {
-    throw new Unauthorized('Invalid Credentials')
-  }
+  if (!user) throw new Unauthorized('Invalid Credentials')
 
   ctx.body = {
     id: user.id,
@@ -40,7 +35,7 @@ router.post('/login', async (ctx) => {
     email: user.email,
     user_name: user.user_name,
     country_id: user.country_id,
-    token: user.token
+    token: jwt.encode({ id: user.id })
   }
 })
 
