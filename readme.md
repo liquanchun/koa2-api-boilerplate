@@ -52,7 +52,7 @@ ctx.checkBody('address').empty().len(1, 255)
 if (ctx.errors) throw new BadRequest(ctx.errors)
 ```
 
-<h4>User Access</h4>
+<h4>2. User Access</h4>
 
 ```javascript
 if (!userHasAccessToThis()) throw new Forbidden("You don't have access to this module")
