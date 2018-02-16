@@ -32,7 +32,7 @@ open http://localhost:3000/apidoc/ - slash at the end is required
 <h3>Errors Handling Examples</h3>
 
 <h4>1. Validation</h4>
-Endpoint: Get user profile (`GET /users/:id`)
+Endpoint: Get user profile ( `GET /users/:id` )
 
 ```
 ctx.checkParams('id).notEmpty().isInt()
@@ -42,7 +42,7 @@ const user = await User.findOne({ id: ctx.params.id })
 if (!user) throw new BadRequest([{ id: 'Invalid user id' }])
 ```
 
-Endpoint: Create user (`POST /users`)
+Endpoint: Create user ( `POST /users` )
 
 ```
 ctx.checkBody('email').notEmpty().isEmail()
