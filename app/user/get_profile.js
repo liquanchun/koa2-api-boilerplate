@@ -1,7 +1,6 @@
 const router = require('koa-router')();
 const User = require('../../models/user')
 const { BadRequest } = require('../../libraries/error')
-const _ = require('lodash')
 
 
 /**
@@ -16,7 +15,7 @@ router.get('/user/:user_id', async (ctx) => {
 
   if (ctx.errors) throw new BadRequest(ctx.errors);
 
-  let user = await User.findProfileById(ctx.params.user_id)
+  const user = await User.findProfileById(ctx.params.user_id)
   if (user) {
     ctx.userProfile = user
   }
@@ -26,14 +25,14 @@ router.get('/user/:user_id', async (ctx) => {
     }])
   }
 
-  ctx.body = _.pick(ctx.userProfile, [
-    'id',
-    'first_name',
-    'last_name',
-    'email',
-    'user_name',
-    'country'
-  ])
+  ctx.body = {
+    id: user.id,
+    first_name: user.first_name,
+    last_name: user.last_name,
+    email: user.email,
+    user_name: user.user_name,
+    country: user.country
+  }
 })
 
 module.exports = router

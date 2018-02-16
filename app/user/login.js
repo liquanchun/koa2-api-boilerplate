@@ -3,7 +3,6 @@ const User = require('../../models/user')
 const jwt = require('../../libraries/jwt')
 
 const { BadRequest, Unauthorized } = require('../../libraries/error')
-const _ = require('lodash')
 const string = require('../../libraries/string')
 
 
@@ -22,7 +21,7 @@ router.post('/login', async (ctx) => {
 
   if (ctx.errors) throw new BadRequest(ctx.errors)
 
-  let user = await User.findOne({
+  const user = await User.findOne({
     email: ctx.request.body.email,
     password: string.generatePasswordHash(ctx.request.body.password)
   })
@@ -34,15 +33,15 @@ router.post('/login', async (ctx) => {
     throw new Unauthorized('Invalid Credentials')
   }
 
-  ctx.body = _.pick(user, [
-    'id',
-    'first_name',
-    'last_name',
-    'email',
-    'user_name',
-    'country_id',
-    'token'
-  ])
+  ctx.body = {
+    id: user.id,
+    first_name: user.first_name,
+    last_name: user.last_name,
+    email: user.email,
+    user_name: user.user_name,
+    country_id: user.country_id,
+    token: user.token
+  }
 })
 
 module.exports = router
