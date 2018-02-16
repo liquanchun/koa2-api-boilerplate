@@ -36,6 +36,6 @@ fs.readdirSync('./app').filter(file => fs.statSync(path.join('./app', file)).isD
   })
 });
 
-app.listen(3000, () => {
+app.listen(config.server.port, () => {
   console.log(`API listening on port ${config.server.port}`)
 })

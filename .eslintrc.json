@@ -42,6 +42,7 @@
       "array-callback-return": "off",
       "comma-dangle": "off",
       "newline-per-chained-call": "off",
-      "brace-style": [2, "stroustrup"]
+      "brace-style": [2, "stroustrup"],
+      "eol-last": "off"
   }
 }

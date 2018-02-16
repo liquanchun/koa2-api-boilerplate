@@ -1,19 +1,20 @@
 const ExtendableError = require('es6-error');
 
 exports.BadRequest = class BadRequest extends ExtendableError {
+
   constructor(validationErrors) {
     super('Bad Request');
 
-    let includedKeys = []
-    let formattedErrors = []
+    const includedKeys = []
+    const formattedErrors = []
 
-    for(let i=0; i<validationErrors.length; i++){
-      let error = {
-        field: Object.keys(validationErrors[i])[0], 
+    for (let i = 0; i < validationErrors.length; i++) {
+      const error = {
+        field: Object.keys(validationErrors[i])[0],
         message: validationErrors[i][Object.keys(validationErrors[i])[0]]
       }
 
-      if(!includedKeys.includes(error.field)){
+      if (!includedKeys.includes(error.field)) {
         formattedErrors.push(error)
       }
 
@@ -21,33 +22,52 @@ exports.BadRequest = class BadRequest extends ExtendableError {
     }
 
     this.body = {
-        errors: formattedErrors
+      errors: formattedErrors
     };
     this.status = 400
   }
+
 }
 
-exports.Unauthorized = class Unauthorized extends ExtendableError{
+exports.Unauthorized = class Unauthorized extends ExtendableError {
+
   constructor(message) {
     super(message)
     this.body = {
       errors: [{
-        message: message
+        message
+      }]
+    }
+    this.status = 401
+  }
+
+}
+
+exports.Forbidden = class Unauthorized extends ExtendableError {
+
+  constructor(message) {
+    super(message)
+    this.body = {
+      errors: [{
+        message
       }]
     }
     this.status = 403
   }
+
 }
 
 exports.ModelError = class ModelError extends ExtendableError {
+
   constructor(message) {
     super('Internal Server Error')
     this.body = {
       errors: [{
-        message: message,
+        message,
         stack: this.stack
       }]
     }
     this.status = 500
   }
+
 }
