@@ -43,7 +43,7 @@ open http://localhost:3000/apidoc/ - slash at the end is required
 |   └── file
 |   |   └── upload_single_file.js           # Upload single file
 ├── libraries
-|   ├── error.js                            # Error types definition (ex. Unauthorized or BadRequest)
+|   ├── error.js                            # Error types definition (Unauthorized, Forbidden, BadRequest)
 |   ├── error_handler.js                    # Koa2 middleware for error handle
 |   ├── jwt.js                              # JWT wrapper for token encode and decode
 |   ├── knex.js                             # Knex wrapper for database connection
