@@ -36,7 +36,7 @@ open http://localhost:3000/apidoc/ - slash at the end is required
 Endpoint: Get user profile ( `GET /users/:id` )
 
 ```javascript
-ctx.checkParams('id).notEmpty().isInt()
+ctx.checkParams('id').notEmpty().isInt()
 if (ctx.errors) throw new BadRequest(ctx.errors)
 
 const user = await User.findOne({ id: ctx.params.id })
