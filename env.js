@@ -1,7 +1,6 @@
 module.exports = {
   server: {
     port: 3000,
-    prefix: '/api',
     url: 'http://localhost:3000'
   },
   jwt: {
