@@ -2,3 +2,4 @@ node_modules
 public/apidoc
 env.json
 .vscode
+package-lock.json
