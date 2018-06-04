@@ -1,11 +1,13 @@
 const router = require('koa-router')();
-const auth = require('../../middlewares/auth')
+const auth = require('../../middlewares/auth');
 
-const Country = require('../../models/country')
+const Country = require('../../models/country');
 
 router.get('/me/profile', auth, async (ctx) => {
-  const user = ctx.currentUser
-  user.country = await Country.findOne({ id: user.country_id })
+  const user = ctx.currentUser;
+  user.country = await Country.findOne({
+    id: user.country_id,
+  });
 
   ctx.body = {
     id: user.id,
@@ -14,8 +16,8 @@ router.get('/me/profile', auth, async (ctx) => {
     email: user.email,
     user_name: user.user_name,
     country_id: user.country_id,
-    token: user.token
-  }
-})
+    token: user.token,
+  };
+});
 
-module.exports = router
+module.exports = router;

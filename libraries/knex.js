@@ -1,4 +1,4 @@
-let config = require('../env').knex
-let connection = require('knex')(config)
+const config = require('../env').knex;
+const connection = require('knex')(config);
 
-module.exports = connection
+module.exports = connection;

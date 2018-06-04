@@ -1,8 +1,8 @@
-const knex = require('../libraries/knex')
+const knex = require('../libraries/knex');
 
 exports.findOne = where => knex('tb_country')
   .select('tb_country.*')
   .where(where)
-  .first()
+  .first();
 
-exports.getList = () => knex('tb_country').select('tb_country.*')
+exports.getList = () => knex('tb_country').select('tb_country.*');

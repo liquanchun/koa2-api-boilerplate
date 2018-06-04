@@ -1,7 +1,6 @@
-let router = require('koa-router')();
-let Country = require('../../models/country')
-let auth = require('../../middlewares/auth')
-
+const router = require('koa-router')();
+const Country = require('../../models/country');
+const auth = require('../../middlewares/auth');
 
 /**
  * @api {get} /countries Get Countries List
@@ -11,11 +10,8 @@ let auth = require('../../middlewares/auth')
  * @apiHeader {String} token user token
  * @apiSampleRequest /countries
  */
-router.get('/countries', auth, getCountriesList)
+router.get('/countries', auth, async (ctx) => {
+  ctx.body = await Country.getList();
+});
 
-async function getCountriesList(ctx, next){
-    let countries = await Country.getList()
-    ctx.body = countries
-}
-
-module.exports = router
+module.exports = router;

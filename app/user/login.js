@@ -1,9 +1,9 @@
 const router = require('koa-router')();
-const User = require('../../models/user')
-const jwt = require('../../libraries/jwt')
+const User = require('../../models/user');
+const jwt = require('../../libraries/jwt');
 
-const { BadRequest, Unauthorized } = require('../../libraries/error')
-const string = require('../../libraries/string')
+const { BadRequest, Unauthorized } = require('../../libraries/error');
+const string = require('../../libraries/string');
 
 
 /**
@@ -16,17 +16,17 @@ const string = require('../../libraries/string')
  * @apiSampleRequest /login
  */
 router.post('/login', async (ctx) => {
-  ctx.checkBody('email').notEmpty('Email field is required').len(4, 50, 'Email length must be between 4 and 50 characters')
-  ctx.checkBody('password').notEmpty('Password field is required').len(4, 20, 'Password length must be between 4 and 20 characters')
+  ctx.checkBody('email').notEmpty('Email field is required').len(4, 50, 'Email length must be between 4 and 50 characters');
+  ctx.checkBody('password').notEmpty('Password field is required').len(4, 20, 'Password length must be between 4 and 20 characters');
 
-  if (ctx.errors) throw new BadRequest(ctx.errors)
+  if (ctx.errors) throw new BadRequest(ctx.errors);
 
   const user = await User.findOne({
     email: ctx.request.body.email,
-    password: string.generatePasswordHash(ctx.request.body.password)
-  })
+    password: string.generatePasswordHash(ctx.request.body.password),
+  });
 
-  if (!user) throw new Unauthorized('Invalid Credentials')
+  if (!user) throw new Unauthorized('Invalid Credentials');
 
   ctx.body = {
     id: user.id,
@@ -35,8 +35,8 @@ router.post('/login', async (ctx) => {
     email: user.email,
     user_name: user.user_name,
     country_id: user.country_id,
-    token: jwt.encode({ id: user.id })
-  }
-})
+    token: jwt.encode({ id: user.id }),
+  };
+});
 
-module.exports = router
+module.exports = router;
