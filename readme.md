@@ -9,7 +9,7 @@ npm start
 open http://localhost:3000/apidoc/ - slash at the end is required
 ```
 
-<h3>Required extensions for editor<h3>
+<h3>Required extensions for editor</h3>
 <ul>
     <li>ESLint - linting utility, rules are in `.eslintrc.json`</li>
     <li>Beautofy - code formatting according to eslint, rules are in `.jsbeautifyrc`</li>
