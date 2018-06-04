@@ -12,7 +12,7 @@ open http://localhost:3000/apidoc/ - slash at the end is required
 <h3>Required extensions for editor</h3>
 <ul>
     <li>ESLint - linting utility, rules are in <code>.eslintrc.json</code></li>
-    <li>Beautofy - code formatting according to eslint, rules are in <code>.jsbeautifyrc</code></li>
+    <li>Beautify - code formatting according to eslint, rules are in <code>.jsbeautifyrc</code></li>
 </ul>
 
 <h3>Requirements</h3>
