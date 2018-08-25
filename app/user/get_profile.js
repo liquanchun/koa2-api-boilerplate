@@ -6,13 +6,13 @@ const {
 
 
 /**
- * @api {get} /user/:user_id Get User Profile
+ * @api {get} /api/user/:user_id Get User Profile
  * @apiVersion 1.0.0
  * @apiGroup User
  * @apiName GetUserProfile
- * @apiSampleRequest /user/:user_id
+ * @apiSampleRequest /api/user/:user_id
  */
-router.get('/user/:user_id', async (ctx) => {
+router.get('/api/user/:user_id', async (ctx) => {
   ctx.checkParams('user_id').notEmpty('User id is required').isInt('User id must be a number');
 
   if (ctx.errors) throw new BadRequest(ctx.errors);

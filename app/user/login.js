@@ -15,7 +15,7 @@ const string = require('../../libraries/string');
  * @apiParam {String{1,20}} password user password
  * @apiSampleRequest /login
  */
-router.post('/login', async (ctx) => {
+router.post('/api/login', async (ctx) => {
   ctx.checkBody('email').notEmpty('Email field is required').len(4, 50, 'Email length must be between 4 and 50 characters');
   ctx.checkBody('password').notEmpty('Password field is required').len(4, 20, 'Password length must be between 4 and 20 characters');
 

@@ -37,6 +37,6 @@ async function uploadFile(ctx) {
  * @apiHeader {String} token token
  */
 
-router.post('/upload-file', auth, validateFile, uploadFile);
+router.post('/api/upload-file', auth, validateFile, uploadFile);
 
 module.exports = router;

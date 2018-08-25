@@ -3,7 +3,7 @@ const auth = require('../../middlewares/auth');
 
 const Country = require('../../models/country');
 
-router.get('/me/profile', auth, async (ctx) => {
+router.get('/api/me/profile', auth, async (ctx) => {
   const user = ctx.currentUser;
   user.country = await Country.findOne({
     id: user.country_id,
