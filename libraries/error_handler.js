@@ -12,7 +12,7 @@ module.exports = async (ctx, next) => {
       ctx.body = {
         errors: [{
           message: err.message,
-          stack: err.stack, // remove in production
+          // stack: err.stack, // remove in production
         }],
       };
     }
