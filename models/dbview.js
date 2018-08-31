@@ -2,6 +2,10 @@ const knex = require('../libraries/knex');
 
 exports.getDataList = viewname => knex(viewname).where('IsValid', 1).select(`${viewname}.*`);
 
+exports.getDataListById = (viewname, keyname, keyvalue) => knex(viewname).where(keyname, keyvalue).select(`${viewname}.*`);
+
+exports.getDataById = (viewname, keyvalue) => knex(viewname).where('Id', keyvalue).select(`${viewname}.*`);
+
 exports.updateData = (viewname, data) => knex(viewname).returning('id')
   .where('Id', data.Id)
   .update(data);

@@ -16,4 +16,37 @@ router.get('/api/data/:view_name', async (ctx) => {
   };
 });
 
+/**
+ * @api {get} /api/data/:view_name/:keyname/:keyvalue Get Data List by ID
+ * @apiVersion 1.0.0
+ * @apiGroup DataBase
+ * @apiName GetDataListById
+ * @apiSampleRequest /api/data/:view_name/:keyname/:keyvalue
+ */
+router.get('/api/data/:view_name/:keyname/:keyvalue', async (ctx) => {
+  ctx.checkParams('view_name').notEmpty('view_name is required');
+  ctx.checkParams('keyname').notEmpty('keyname is required');
+  ctx.checkParams('keyvalue').notEmpty('keyvalue is required');
+  ctx.body = {
+    ViewName: ctx.params.view_name,
+    Data: await Dbview.getDataListById(ctx.params.view_name, ctx.params.keyname, ctx.params.keyvalue),
+  };
+});
+
+/**
+ * @api {get} /api/data/:view_name/:keyvalue Get Data by ID
+ * @apiVersion 1.0.0
+ * @apiGroup DataBase
+ * @apiName GetDataById
+ * @apiSampleRequest /api/data/:view_name/:keyvalue
+ */
+router.get('/api/data/:view_name/:keyvalue', async (ctx) => {
+  ctx.checkParams('view_name').notEmpty('view_name is required');
+  ctx.checkParams('keyvalue').notEmpty('keyvalue is required');
+  ctx.body = {
+    ViewName: ctx.params.view_name,
+    Data: await Dbview.getDataById(ctx.params.view_name, ctx.params.keyvalue),
+  };
+});
+
 module.exports = router;

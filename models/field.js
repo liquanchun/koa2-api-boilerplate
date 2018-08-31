@@ -5,7 +5,17 @@ exports.findOne = where => knex('form_ListField')
   .where(where)
   .first();
 
-exports.getFieldList = () => knex('form_ListField').where('IsValid', 1).select('form_ListField.*').orderByRaw('ViewName,OrderInd');
+exports.getFieldList = () => knex('form_ListField')
+  .where('IsValid', 1)
+  .select('form_ListField.*')
+  .orderByRaw('ViewName,OrderInd desc');
+
+exports.getFieldListd = () => knex.select('FieldName').from('form_ListField').limit(10);
+
+exports.getFieldListByName = viewname => knex('form_ListField')
+  .where({ IsValid: 1, ViewName: viewname })
+  .select('form_ListField.*')
+  .orderByRaw('ViewName,OrderInd desc');
 
 exports.getFieldRoleList = () => knex('form_FieldRole').where('IsValid', 1).select('form_FieldRole.*');
 
@@ -27,6 +37,6 @@ exports.firstField = where => knex('form_ListField').where(where).first();
 
 exports.firstFieldRole = where => knex('form_FieldRole').where(where).first();
 
-exports.deleteFieldRole = ids => knex('form_FieldRole').whereIn('Id', ids).update('IsValid', 0);
+exports.deleteFieldRole = ids => knex('form_FieldRole').whereIn('Id', ids).del();
 
-exports.deleteField = where => knex('form_ListField').where(where).update('IsValid', 0);
+exports.deleteField = where => knex('form_ListField').where(where).del();
