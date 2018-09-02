@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "async": "^2.6.1",
     "clear": "0.0.1",
     "es6-error": "^4.0.2",
     "eslint": "^4.14.0",

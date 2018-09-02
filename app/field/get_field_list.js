@@ -1,6 +1,8 @@
 const router = require('koa-router')();
 const Field = require('../../models/field');
+const DbView = require('../../models/dbview');
 const _ = require('lodash');
+const async = require('async');
 /**
  * @api {get} /api/fields Get field List
  * @apiVersion 1.0.0
@@ -38,7 +40,9 @@ router.get('/api/fieldsd', async (ctx) => {
  */
 router.get('/api/fields/:view_name', async (ctx) => {
   ctx.checkParams('view_name').notEmpty('view_name is required');
-  ctx.body = { ViewName: 'form_ListField', Data: await Field.getFieldListByName(ctx.params.view_name) };
+
+  const dataList = await Field.getFieldListByName(ctx.params.view_name);
+  ctx.body = { ViewName: 'form_ListField', Data: dataList };
 });
 
 module.exports = router;

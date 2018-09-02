@@ -17,6 +17,25 @@ router.get('/api/data/:view_name', async (ctx) => {
 });
 
 /**
+ * @api {post} /api/datalist/:view_name get data list
+ * @apiVersion 1.0.0
+ * @apiName DataBase
+ * @apiGroup DataBase
+ * @apiParam {String{1,50}} OrderId 订单Id
+ * @apiParam {String{1,50}} Status 状态
+ * @apiSampleRequest /api/datalist/:view_name
+ */
+router.post('/api/datalist/:view_name', async (ctx) => {
+  ctx.checkParams('view_name').notEmpty('view_name is required');
+
+  console.log(ctx.request.body);
+  ctx.body = {
+    ViewName: ctx.params.view_name,
+    Data: await Dbview.getDataList(ctx.params.view_name),
+  };
+});
+
+/**
  * @api {get} /api/data/:view_name/:keyname/:keyvalue Get Data List by ID
  * @apiVersion 1.0.0
  * @apiGroup DataBase
