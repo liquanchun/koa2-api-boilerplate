@@ -4,6 +4,9 @@ exports.getDataList = viewname => knex(viewname).where('IsValid', 1).select(`${v
 
 exports.getDataListById = (viewname, keyname, keyvalue) => knex(viewname).where(keyname, keyvalue).select(`${viewname}.*`);
 
+exports.getDataListByWhere =
+  (viewname, wherekey, wherevalue) => knex(viewname).whereRaw(wherekey, wherevalue);
+
 exports.getDataById = (viewname, keyvalue) => knex(viewname).where('Id', keyvalue).select(`${viewname}.*`);
 
 exports.updateData = (viewname, data) => knex(viewname).returning('id')

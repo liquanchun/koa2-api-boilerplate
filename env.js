@@ -13,7 +13,7 @@ module.exports = {
       host: 'bj-cdb-2zonkmfh.sql.tencentcdb.com',
       port: 63297,
       user: 'steve',
-      password: '******',
+      password: '1qaz@WSX',
       database: 'store_app',
     },
     pool: { min: 0, max: 7 },

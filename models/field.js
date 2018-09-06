@@ -37,6 +37,6 @@ exports.firstField = where => knex('form_ListField').where(where).first();
 
 exports.firstFieldRole = where => knex('form_FieldRole').where(where).first();
 
-exports.deleteFieldRole = ids => knex('form_FieldRole').whereIn('Id', ids).del();
+exports.deleteFieldRole = ids => knex('form_FieldRole').whereIn('FieldId', ids).del();
 
 exports.deleteField = where => knex('form_ListField').where(where).del();

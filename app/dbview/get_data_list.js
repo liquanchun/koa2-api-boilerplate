@@ -1,6 +1,6 @@
 const router = require('koa-router')();
 const Dbview = require('../../models/dbview');
-
+const _ = require('lodash');
 /**
  * @api {get} /api/data/:view_name Get Data List
  * @apiVersion 1.0.0
@@ -21,17 +21,40 @@ router.get('/api/data/:view_name', async (ctx) => {
  * @apiVersion 1.0.0
  * @apiName DataBase
  * @apiGroup DataBase
- * @apiParam {String{1,50}} OrderId 订单Id
+ * @apiParam {String{1,50}} InDate-1 入库起始日期
+ * @apiParam {String{1,50}} InDate-2 入库截止日期
  * @apiParam {String{1,50}} Status 状态
  * @apiSampleRequest /api/datalist/:view_name
  */
 router.post('/api/datalist/:view_name', async (ctx) => {
   ctx.checkParams('view_name').notEmpty('view_name is required');
-
-  console.log(ctx.request.body);
+  const keys = _.keys(ctx.request.body);
+  const keyword = [];
+  const keysql = [];
+  const values = [];
+  keys.forEach((k) => {
+    if (ctx.request.body[k]) {
+      if (k.includes('-')) {
+        const kw = k.split('-')[0];
+        if (keyword.includes(kw)) {
+          keysql.push(k.split('-')[0] + ' <= ?');
+        } else {
+          keysql.push(k.split('-')[0] + ' >= ?');
+        }
+        keyword.push(kw);
+      } else {
+        keyword.push(k);
+        keysql.push(k + ' = ?');
+      }
+      values.push(ctx.request.body[k]);
+    }
+  });
+  let raw = _.join(keysql, ' and ');
+  console.log(raw);
+  console.log(values);
   ctx.body = {
     ViewName: ctx.params.view_name,
-    Data: await Dbview.getDataList(ctx.params.view_name),
+    Data: await Dbview.getDataListByWhere(ctx.params.view_name, raw, values),
   };
 });
 
