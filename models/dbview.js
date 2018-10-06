@@ -18,3 +18,5 @@ exports.addData = (viewname, data) => knex.returning('id').insert([data], 'id').
 exports.deleteData = (viewname, id) => knex(viewname).where('Id', id).update('IsValid', 0);
 
 exports.firstData = (viewname, id) => knex(viewname).where('Id', id).first();
+
+exports.dataCount = tablename => knex(tablename).count('id');
