@@ -98,8 +98,10 @@ router.get('/api/data/:view_name/:keyvalue', async (ctx) => {
  * @apiName GetDataCount
  * @apiSampleRequest /api/data/count/:view_name
  */
-router.get('/api/data/count/:view_name', async (ctx) => {
+router.get('/api/datacount/:view_name', async (ctx) => {
   ctx.checkParams('view_name').notEmpty('view_name is required');
+  console.log('**********************');
+  console.log(ctx.params.view_name);
   ctx.body = {
     ViewName: ctx.params.view_name,
     Data: await Dbview.dataCount(ctx.params.view_name),
