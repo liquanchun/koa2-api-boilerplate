@@ -92,19 +92,20 @@ router.get('/api/data/:view_name/:keyvalue', async (ctx) => {
 });
 
 /**
- * @api {get} /api/data/count/:view_name Get Data count
+ * @api {get} /api/datacount/:view_name Get Data count
  * @apiVersion 1.0.0
  * @apiGroup DataBase
  * @apiName GetDataCount
- * @apiSampleRequest /api/data/count/:view_name
+ * @apiSampleRequest /api/datacount/:view_name
  */
 router.get('/api/datacount/:view_name', async (ctx) => {
   ctx.checkParams('view_name').notEmpty('view_name is required');
   console.log('**********************');
-  console.log(ctx.params.view_name);
+  const datacnt = await Dbview.dataCount(ctx.params.view_name);
+  console.log(datacnt[0].a);
   ctx.body = {
     ViewName: ctx.params.view_name,
-    Data: await Dbview.dataCount(ctx.params.view_name),
+    Data: datacnt[0].a,
   };
 });
 

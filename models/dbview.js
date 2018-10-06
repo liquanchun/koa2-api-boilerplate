@@ -19,4 +19,4 @@ exports.deleteData = (viewname, id) => knex(viewname).where('Id', id).update('Is
 
 exports.firstData = (viewname, id) => knex(viewname).where('Id', id).first();
 
-exports.dataCount = tablename => knex(tablename).count('id');
+exports.dataCount = tablename => knex(tablename).count('id as a');
