@@ -100,9 +100,24 @@ router.get('/api/data/:view_name/:keyvalue', async (ctx) => {
  */
 router.get('/api/datacount/:view_name', async (ctx) => {
   ctx.checkParams('view_name').notEmpty('view_name is required');
-  console.log('**********************');
   const datacnt = await Dbview.dataCount(ctx.params.view_name);
   console.log(datacnt[0].a);
+  ctx.body = {
+    ViewName: ctx.params.view_name,
+    Data: datacnt[0].a,
+  };
+});
+
+/**
+ * @api {get} /api/maxid/:view_name Get Data count
+ * @apiVersion 1.0.0
+ * @apiGroup DataBase
+ * @apiName GetMaxid
+ * @apiSampleRequest /api/maxid/:view_name
+ */
+router.get('/api/maxid/:view_name', async (ctx) => {
+  ctx.checkParams('view_name').notEmpty('view_name is required');
+  const datacnt = await Dbview.maxid(ctx.params.view_name);
   ctx.body = {
     ViewName: ctx.params.view_name,
     Data: datacnt[0].a,
