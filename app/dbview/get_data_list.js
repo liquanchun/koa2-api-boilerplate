@@ -46,7 +46,9 @@ router.post('/api/datalist/:view_name', async (ctx) => {
         keyword.push(k);
         keysql.push(k + ' = ?');
       }
-      values.push(ctx.request.body[k]);
+      if(ctx.request.body[k] != null){
+        values.push(ctx.request.body[k]);
+      }
     }
   });
   let raw = _.join(keysql, ' and ');
