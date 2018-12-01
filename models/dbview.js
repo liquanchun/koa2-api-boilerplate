@@ -10,6 +10,9 @@ exports.getDataListByWhere =
 exports.getDataListByWhereVinno =
   (viewname, wherekey, wherevalue,vinno) => knex(viewname).where('Vinno', 'like', '%'+ vinno +'%').whereRaw(wherekey, wherevalue);
 
+exports.getDataListByWhereType =
+  (viewname, wherekey, wherevalue,type) => knex(viewname).where('CarTypeCode', 'like', '%'+ vinno +'%').whereRaw(wherekey, wherevalue);
+
 exports.getDataById = (viewname, keyvalue) => knex(viewname).where('Id', keyvalue).select(`${viewname}.*`);
 
 exports.updateData = (viewname, data) => knex(viewname).returning('id')

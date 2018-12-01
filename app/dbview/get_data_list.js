@@ -33,10 +33,13 @@ router.post("/api/datalist/:view_name", async ctx => {
   const keysql = [];
   const values = [];
   let Vinno = "";
+  let CarTypeCode="";
   keys.forEach(k => {
     if (k == "Vinno") {
       Vinno = ctx.request.body[k];
-    } else {
+    }else if(k == "CarTypeCode") {
+      CarTypeCode = ctx.request.body[k];
+    }else {
       if (ctx.request.body[k]) {
         if (k.includes("-")) {
           const kw = k.split("-")[0];
@@ -64,6 +67,12 @@ router.post("/api/datalist/:view_name", async ctx => {
     ctx.body = {
       ViewName: ctx.params.view_name,
       Data: await Dbview.getDataListByWhereVinno(ctx.params.view_name, raw, values, Vinno)
+    };
+
+  }else if (CarTypeCode) {
+    ctx.body = {
+      ViewName: ctx.params.view_name,
+      Data: await Dbview.getDataListByWhereType(ctx.params.view_name, raw, values, CarTypeCode)
     };
 
   } else {
