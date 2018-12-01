@@ -32,7 +32,7 @@ router.post("/api/datalist/:view_name", async ctx => {
   const keyword = [];
   const keysql = [];
   const values = [];
-  const Vinno = "";
+  let Vinno = "";
   keys.forEach(k => {
     if (k == "Vinno") {
       Vinno = ctx.request.body[k];
