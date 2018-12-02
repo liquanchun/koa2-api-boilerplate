@@ -40,7 +40,7 @@ router.post("/api/datalist/:view_name", async ctx => {
     }else if(k == "CarTypeCode") {
       CarTypeCode = ctx.request.body[k];
     }else {
-      if (ctx.request.body[k]) {
+      if (ctx.request.body[k] !=null && ctx.request.body[k] !="") {
         if (k.includes("-")) {
           const kw = k.split("-")[0];
           if (keyword.includes(kw)) {
@@ -53,9 +53,7 @@ router.post("/api/datalist/:view_name", async ctx => {
           keyword.push(k);
           keysql.push(k + " = ?");
         }
-        if (ctx.request.body[k] != null) {
-          values.push(ctx.request.body[k]);
-        }
+        values.push(ctx.request.body[k]);
       }
     }
   });
