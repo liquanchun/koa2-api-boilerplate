@@ -1,4 +1,5 @@
 const ExtendableError = require('es6-error');
+const logger = require('./log4');
 
 module.exports = async (ctx, next) => {
   try {
@@ -9,12 +10,14 @@ module.exports = async (ctx, next) => {
       ctx.body = err.body;
     } else {
       ctx.status = 500;
-      ctx.body = {
-        errors: [{
-          message: err.message,
-          // stack: err.stack, // remove in production
-        }],
-      };
+      ctx.body = "服务器发生错误。";
+      // ctx.body = {
+      //   errors: [{
+      //     message: err.message,
+      //     // stack: err.stack, // remove in production
+      //   }],
+      // };
+      logger.error(err);
     }
     ctx.app.emit('error', err, ctx);
   }
