@@ -41,12 +41,12 @@ router.post("/api/datalist/:view_name", async ctx => {
       CarTypeCode = ctx.request.body[k];
     }else {
       if (ctx.request.body[k] !=null && ctx.request.body[k] !="") {
-        if (k.includes("-")) {
-          const kw = k.split("-")[0];
+        if (k.includes("_")) {
+          const kw = k.split("_")[0];
           if (keyword.includes(kw)) {
-            keysql.push(k.split("-")[0] + " <= ?");
+            keysql.push(k.split("_")[0] + " <= ?");
           } else {
-            keysql.push(k.split("-")[0] + " >= ?");
+            keysql.push(k.split("_")[0] + " >= ?");
           }
           keyword.push(kw);
         } else {
