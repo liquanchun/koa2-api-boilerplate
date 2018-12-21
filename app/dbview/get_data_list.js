@@ -82,6 +82,19 @@ router.post("/api/datalist/:view_name", async ctx => {
 });
 
 /**
+ * 
+ */
+router.post("/api/sp/:sp_name", async ctx => {
+  const values = _.values(ctx.request.body);
+  ctx.body = {
+    ViewName: ctx.params.view_name,
+    Data: await Dbview.callsp(
+      ctx.params.sp_name,
+      values
+    )
+  };
+})
+/**
  * @api {get} /api/data/:view_name/:keyname/:keyvalue Get Data List by ID
  * @apiVersion 1.0.0
  * @apiGroup DataBase

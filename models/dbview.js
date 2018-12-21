@@ -30,3 +30,7 @@ exports.firstData = (viewname, id) => knex(viewname).where('Id', id).first();
 exports.dataCount = tablename => knex(tablename).count('id as a');
 
 exports.maxid = tablename => knex(tablename).max('id as a');
+
+exports.callsp = (spname,paras) => knex.raw('call ' + spname + '(?)', paras).then(function(resp) { 
+    return resp;
+ });
