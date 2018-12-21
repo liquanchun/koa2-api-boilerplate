@@ -8,10 +8,14 @@ exports.getDataListByWhere =
   (viewname, wherekey, wherevalue) => knex(viewname).whereRaw(wherekey, wherevalue);
 
 exports.getDataListByWhereVinno =
-  (viewname, wherekey, wherevalue,vinno) => knex(viewname).where('Vinno', 'like', '%'+ vinno +'%').whereRaw(wherekey, wherevalue);
+  (viewname, wherekey, wherevalue, vinno) => knex(viewname).where('Vinno', 'like', '%'+ vinno +'%').whereRaw(wherekey, wherevalue);
 
 exports.getDataListByWhereType =
-  (viewname, wherekey, wherevalue,type) => knex(viewname).where('CarTypeCode', 'like', '%'+ type +'%').whereRaw(wherekey, wherevalue);
+  (viewname, wherekey, wherevalue, type) => knex(viewname).where('CarTypeCode', 'like', '%'+ type +'%').whereRaw(wherekey, wherevalue);
+
+exports.getDataListByWhereCustName =
+  (viewname, wherekey, wherevalue, name) => knex(viewname).where('CustName', 'like', '%'+ name +'%').whereRaw(wherekey, wherevalue);
+
 
 exports.getDataById = (viewname, keyvalue) => knex(viewname).where('Id', keyvalue).select(`${viewname}.*`);
 
