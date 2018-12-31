@@ -35,8 +35,11 @@ router.post("/api/datalist/:view_name", async ctx => {
   let Vinno = "";
   let CarTypeCode="";
   let CustName="";
+  let dipan="";
   keys.forEach(k => {
-    if (k == "Vinno" || k=="19_新车信息_底盘号") {
+    if (k =="19_新车信息_底盘号") {
+      dipan = ctx.request.body[k];
+    }else if (k == "Vinno") {
       Vinno = ctx.request.body[k];
     }else if(k == "CarTypeCode") {
       CarTypeCode = ctx.request.body[k];
@@ -64,7 +67,12 @@ router.post("/api/datalist/:view_name", async ctx => {
   console.log(raw);
   console.log(values);
 
-  if (Vinno) {
+  if (dipan) {
+    ctx.body = {
+      ViewName: ctx.params.view_name,
+      Data: await Dbview.getDataListByWhereDipan(ctx.params.view_name, raw, values, dipan)
+    };
+  }else if (Vinno) {
     ctx.body = {
       ViewName: ctx.params.view_name,
       Data: await Dbview.getDataListByWhereVinno(ctx.params.view_name, raw, values, Vinno)

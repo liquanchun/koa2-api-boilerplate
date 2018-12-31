@@ -7,8 +7,12 @@ exports.getDataListById = (viewname, keyname, keyvalue) => knex(viewname).where(
 exports.getDataListByWhere =
   (viewname, wherekey, wherevalue) => knex(viewname).whereRaw(wherekey, wherevalue);
 
+exports.getDataListByWhereDipan =
+  (viewname, wherekey, wherevalue, vinno) => knex(viewname).where('19_新车信息_底盘号', 'like', '%'+ vinno +'%').whereRaw(wherekey, wherevalue);
+
 exports.getDataListByWhereVinno =
   (viewname, wherekey, wherevalue, vinno) => knex(viewname).where('Vinno', 'like', '%'+ vinno +'%').whereRaw(wherekey, wherevalue);
+
 
 exports.getDataListByWhereType =
   (viewname, wherekey, wherevalue, type) => knex(viewname).where('CarTypeCode', 'like', '%'+ type +'%').whereRaw(wherekey, wherevalue);
