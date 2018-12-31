@@ -36,7 +36,7 @@ router.post("/api/datalist/:view_name", async ctx => {
   let CarTypeCode="";
   let CustName="";
   keys.forEach(k => {
-    if (k == "Vinno") {
+    if (k == "Vinno" || k=="19_新车信息_底盘号") {
       Vinno = ctx.request.body[k];
     }else if(k == "CarTypeCode") {
       CarTypeCode = ctx.request.body[k];
