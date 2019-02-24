@@ -48,11 +48,11 @@ router.post("/api/datalist/:view_name", async ctx => {
     }else {
       if (ctx.request.body[k] !=null && ctx.request.body[k] !="") {
         if (k.includes("-1") || k.includes("-2")) {
-          const kw = k.split("-")[0];
+          const kw = k.replace(/-1/,'').replace(/-2/,'');
           if (keyword.includes(kw)) {
-            keysql.push(k.split("-")[0] + " <= ?");
+            keysql.push(kw + " <= ?");
           } else {
-            keysql.push(k.split("-")[0] + " >= ?");
+            keysql.push(kw + " >= ?");
           }
           keyword.push(kw);
         } else {
