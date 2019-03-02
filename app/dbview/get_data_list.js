@@ -47,8 +47,8 @@ router.post("/api/datalist/:view_name", async ctx => {
       CustName = ctx.request.body[k];
     }else {
       if (ctx.request.body[k] !=null && ctx.request.body[k] !="") {
-        if (k.includes("-1") || k.includes("-2")) {
-          const kw = '`' + k.replace(/-1/,'').replace(/-2/,'') + '`';
+        if (k.includes("-1") ||  k.includes("-2") ||  k.includes("_1")|| k.includes("_2")) {
+          const kw = '`' + k.replace(/-1/,'').replace(/-2/,'').replace(/_1/,'').replace(/_2/,'') + '`';
           if (keyword.includes(kw)) {
             keysql.push(kw + " <= ?");
           } else {
