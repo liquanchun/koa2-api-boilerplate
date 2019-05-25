@@ -14,3 +14,5 @@ exports.findProfileById = id => knex('sys_user')
 exports.getList = () => knex('sys_user').select('sys_user.*');
 
 exports.count = () => knex('sys_user').count().first();
+
+exports.addData = (viewname, data) => knex.returning('id').insert([data], 'id').into(viewname)

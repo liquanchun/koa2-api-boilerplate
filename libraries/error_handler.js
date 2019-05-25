@@ -1,5 +1,6 @@
 const ExtendableError = require('es6-error');
 const logger = require('./log4');
+const user = require('../models/user');
 
 module.exports = async (ctx, next) => {
   try {
@@ -19,6 +20,15 @@ module.exports = async (ctx, next) => {
       // };
       logger.error(err);
     }
+
+    await user.addData('sys_log', {
+      method: 'error',
+      ip: ctx.request.ip,
+      url: ctx.url,
+      user: ctx.headers.user,
+      msg: JSON.stringify(err),
+    });
+
     ctx.app.emit('error', err, ctx);
   }
 };

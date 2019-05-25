@@ -6,6 +6,7 @@ const cors = require('koa-cors');
 const config = require('./env');
 
 const logger = require('./libraries/log4');
+const user = require('./models/user');
 
 const app = new Koa();
 
@@ -20,6 +21,13 @@ app.use(async (ctx, next) => {
   if (ctx.request.body) {
     logger.info(`request body:${JSON.stringify(ctx.request.body)}`);
   }
+  await user.addData('sys_log', {
+    method: ctx.method,
+    ip: ctx.request.ip,
+    url: ctx.url,
+    user: ctx.headers.user,
+    msg: JSON.stringify(ctx.request.body),
+  });
 });
 
 // static files
