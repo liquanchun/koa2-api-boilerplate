@@ -29,9 +29,14 @@ exports.updateData = (viewname, data) => knex(viewname).returning('id')
 
 exports.addData = (viewname, data) => knex.returning('id').insert([data], 'id').into(viewname);
 
+exports.addDataArr = (viewname, data) => knex.insert(data).into(viewname);
+
+
 exports.deleteData = (viewname, id) => knex(viewname).where('Id', id).update('IsValid', 0);
 
 exports.delete2Data = (viewname, id) => knex(viewname).where('Id', id).del();
+
+exports.deleteser = (viewname, id) => knex(viewname).where('OrderId', id).del();
 
 exports.firstData = (viewname, id) => knex(viewname).where('Id', id).first();
 

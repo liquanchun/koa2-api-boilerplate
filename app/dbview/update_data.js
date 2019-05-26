@@ -64,5 +64,30 @@ router.del('/api/delete2/:view_name/:id', async (ctx) => {
   ctx.checkParams('id').notEmpty('id is required');
   ctx.body = await Dbview.delete2Data(ctx.params.view_name, ctx.params.id);
 });
+/**
+ * @api {delete} /api/deleteser/:view_name Delete2 Data
+ * @apiVersion 1.0.0
+ * @apiName Delete2 Data
+ * @apiGroup DataBase
+ * @apiParam {Int{11}} Id 主键Id
+ * @apiSampleRequest /api/deleteser/:view_name
+ */
+router.del('/api/deleteser/:view_name/:id', async (ctx) => {
+  ctx.checkParams('view_name').notEmpty('view_name is required');
+  ctx.checkParams('id').notEmpty('id is required');
+  ctx.body = await Dbview.deleteser(ctx.params.view_name, ctx.params.id);
+});
+
+/**
+ * @api {post} /api/data/:view_name Add data
+ * @apiVersion 1.0.0
+ * @apiName DataBase
+ * @apiGroup DataBase
+ * @apiSampleRequest /api/data/:view_name
+ */
+router.post('/api/dataarray/:view_name', async (ctx) => {
+  ctx.checkParams('view_name').notEmpty('view_name is required');
+  ctx.body = await Dbview.addDataArr(ctx.params.view_name, ctx.request.body);
+});
 
 module.exports = router;
