@@ -36,6 +36,8 @@ exports.deleteData = (viewname, id) => knex(viewname).where('Id', id).update('Is
 
 exports.delete2Data = (viewname, id) => knex(viewname).where('Id', id).del();
 
+exports.deletePartsData = (viewname, id) => knex(viewname).where('parts_combo_id', id).del();
+
 exports.deleteser = (viewname, id) => knex(viewname).where('OrderId', id).del();
 
 exports.firstData = (viewname, id) => knex(viewname).where('Id', id).first();
