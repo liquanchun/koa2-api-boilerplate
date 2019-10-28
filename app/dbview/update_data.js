@@ -12,7 +12,18 @@ router.post("/api/partscombo", async ctx => {
   ctx.checkParams("view_name").notEmpty("view_name is required");
   const ids = ctx.request.body.selectedPartsIds;
   delete ctx.request.body.selectedPartsIds;
-
+  if(ctx.request.body.partslinkid){
+    delete ctx.request.body.partslinkid;
+  }
+  if(ctx.request.body.partslistno){
+    delete ctx.request.body.partslistno;
+  }
+  if(ctx.request.body.partslistname){
+    delete ctx.request.body.partslistname;
+  }
+  if(ctx.request.body.partslistid){
+    delete ctx.request.body.partslistid;
+  }
   if (!ctx.request.body.Id) {
     const result = await Dbview.addData("set_parts_combo", ctx.request.body);
 
@@ -32,7 +43,7 @@ router.post("/api/partscombo", async ctx => {
       ctx.body = result;
     } else {
       const result = await Dbview.updateData("set_parts_combo", ctx.request.body);
-      
+
       await Dbview.deletePartsData(ctx.request.body.Id);
       let idsArr = _.split(ids, ",");
       for (let i = 0; i < idsArr.length; i++) {
