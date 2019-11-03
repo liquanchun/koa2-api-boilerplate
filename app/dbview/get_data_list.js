@@ -1,6 +1,6 @@
-const router = require("koa-router")();
-const Dbview = require("../../models/dbview");
-const _ = require("lodash");
+const router = require('koa-router')();
+const Dbview = require('../../models/dbview');
+const _ = require('lodash');
 /**
  * @api {get} /api/data/:view_name Get Data List
  * @apiVersion 1.0.0
@@ -8,11 +8,11 @@ const _ = require("lodash");
  * @apiName GetDataList
  * @apiSampleRequest /api/data/:view_name
  */
-router.get("/api/data/:view_name", async ctx => {
-  ctx.checkParams("view_name").notEmpty("view_name is required");
+router.get('/api/data/:view_name', async (ctx) => {
+  ctx.checkParams('view_name').notEmpty('view_name is required');
   ctx.body = {
     ViewName: ctx.params.view_name,
-    Data: await Dbview.getDataList(ctx.params.view_name)
+    Data: await Dbview.getDataList(ctx.params.view_name),
   };
 });
 
@@ -26,88 +26,84 @@ router.get("/api/data/:view_name", async ctx => {
  * @apiParam {String{1,50}} Status 状态
  * @apiSampleRequest /api/datalist/:view_name
  */
-router.post("/api/datalist/:view_name", async ctx => {
-  ctx.checkParams("view_name").notEmpty("view_name is required");
+router.post('/api/datalist/:view_name', async (ctx) => {
+  ctx.checkParams('view_name').notEmpty('view_name is required');
   const keys = _.keys(ctx.request.body);
   const keyword = [];
   const keysql = [];
   const values = [];
-  let Vinno = "";
-  let CarTypeCode="";
-  let CustName="";
-  let dipan="";
-  keys.forEach(k => {
-    if (k =="19_新车信息_底盘号") {
+  let Vinno = '';
+  let CarTypeCode = '';
+  let CustName = '';
+  let dipan = '';
+  keys.forEach((k) => {
+    if (k == '19_新车信息_底盘号') {
       dipan = ctx.request.body[k];
-    }else if (k == "Vinno") {
+    } else if (k == 'Vinno') {
       Vinno = ctx.request.body[k];
-    }else if(k == "CarTypeCode") {
+    } else if (k == 'CarTypeCode') {
       CarTypeCode = ctx.request.body[k];
-    }else if(k == "CustName") {
+    } else if (k == 'CustName') {
       CustName = ctx.request.body[k];
-    }else {
-      if (ctx.request.body[k] !=null && ctx.request.body[k] !="") {
-        if (k.includes("-1") ||  k.includes("-2") ||  k.includes("_1")|| k.includes("_2")) {
-          const kw = '`' + k.replace(/-1/,'').replace(/-2/,'').replace(/_1/,'').replace(/_2/,'') + '`';
-          if (keyword.includes(kw)) {
-            keysql.push(kw + " <= ?");
-          } else {
-            keysql.push(kw + " >= ?");
-          }
-          keyword.push(kw);
+    } else if (ctx.request.body[k] != null && ctx.request.body[k] != '') {
+      if (k.includes('-1') || k.includes('-2') || k.includes('_1') || k.includes('_2')) {
+        const kw = `\`${k.replace(/-1/, '').replace(/-2/, '').replace(/_1/, '').replace(/_2/, '')}\``;
+        if (keyword.includes(kw)) {
+          keysql.push(`${kw} <= ?`);
         } else {
-          keyword.push(k);
-          keysql.push(k + " = ?");
+          keysql.push(`${kw} >= ?`);
         }
-        values.push(ctx.request.body[k]);
+        keyword.push(kw);
+      } else {
+        keyword.push(k);
+        keysql.push(`${k} = ?`);
       }
+      values.push(ctx.request.body[k]);
     }
   });
-  let raw = _.join(keysql, " and ");
-  console.log(raw);
-  console.log(values);
+  const raw = _.join(keysql, ' and ');
 
   if (dipan) {
     ctx.body = {
       ViewName: ctx.params.view_name,
-      Data: await Dbview.getDataListByWhereDipan(ctx.params.view_name, raw, values, dipan)
+      Data: await Dbview.getDataListByWhereDipan(ctx.params.view_name, raw, values, dipan),
     };
-  }else if (Vinno) {
+  } else if (Vinno) {
     ctx.body = {
       ViewName: ctx.params.view_name,
-      Data: await Dbview.getDataListByWhereVinno(ctx.params.view_name, raw, values, Vinno)
+      Data: await Dbview.getDataListByWhereVinno(ctx.params.view_name, raw, values, Vinno),
     };
-  }else if (CarTypeCode) {
+  } else if (CarTypeCode) {
     ctx.body = {
       ViewName: ctx.params.view_name,
-      Data: await Dbview.getDataListByWhereType(ctx.params.view_name, raw, values, CarTypeCode)
+      Data: await Dbview.getDataListByWhereType(ctx.params.view_name, raw, values, CarTypeCode),
     };
-  }else if (CustName) {
+  } else if (CustName) {
     ctx.body = {
       ViewName: ctx.params.view_name,
-      Data: await Dbview.getDataListByWhereCustName(ctx.params.view_name, raw, values, CustName)
+      Data: await Dbview.getDataListByWhereCustName(ctx.params.view_name, raw, values, CustName),
     };
   } else {
     ctx.body = {
       ViewName: ctx.params.view_name,
-      Data: await Dbview.getDataListByWhere(ctx.params.view_name, raw, values)
+      Data: await Dbview.getDataListByWhere(ctx.params.view_name, raw, values),
     };
   }
 });
 
 /**
- * 
+ *
  */
-router.post("/api/sp/:sp_name", async ctx => {
+router.post('/api/sp/:sp_name', async (ctx) => {
   const values = _.values(ctx.request.body);
   ctx.body = {
     ViewName: ctx.params.view_name,
     Data: await Dbview.callsp(
       ctx.params.sp_name,
-      values
-    )
+      values,
+    ),
   };
-})
+});
 /**
  * @api {get} /api/data/:view_name/:keyname/:keyvalue Get Data List by ID
  * @apiVersion 1.0.0
@@ -115,17 +111,17 @@ router.post("/api/sp/:sp_name", async ctx => {
  * @apiName GetDataListById
  * @apiSampleRequest /api/data/:view_name/:keyname/:keyvalue
  */
-router.get("/api/data/:view_name/:keyname/:keyvalue", async ctx => {
-  ctx.checkParams("view_name").notEmpty("view_name is required");
-  ctx.checkParams("keyname").notEmpty("keyname is required");
-  ctx.checkParams("keyvalue").notEmpty("keyvalue is required");
+router.get('/api/data/:view_name/:keyname/:keyvalue', async (ctx) => {
+  ctx.checkParams('view_name').notEmpty('view_name is required');
+  ctx.checkParams('keyname').notEmpty('keyname is required');
+  ctx.checkParams('keyvalue').notEmpty('keyvalue is required');
   ctx.body = {
     ViewName: ctx.params.view_name,
     Data: await Dbview.getDataListById(
       ctx.params.view_name,
       ctx.params.keyname,
-      ctx.params.keyvalue
-    )
+      ctx.params.keyvalue,
+    ),
   };
 });
 
@@ -136,12 +132,12 @@ router.get("/api/data/:view_name/:keyname/:keyvalue", async ctx => {
  * @apiName GetDataById
  * @apiSampleRequest /api/data/:view_name/:keyvalue
  */
-router.get("/api/data/:view_name/:keyvalue", async ctx => {
-  ctx.checkParams("view_name").notEmpty("view_name is required");
-  ctx.checkParams("keyvalue").notEmpty("keyvalue is required");
+router.get('/api/data/:view_name/:keyvalue', async (ctx) => {
+  ctx.checkParams('view_name').notEmpty('view_name is required');
+  ctx.checkParams('keyvalue').notEmpty('keyvalue is required');
   ctx.body = {
     ViewName: ctx.params.view_name,
-    Data: await Dbview.getDataById(ctx.params.view_name, ctx.params.keyvalue)
+    Data: await Dbview.getDataById(ctx.params.view_name, ctx.params.keyvalue),
   };
 });
 
@@ -152,13 +148,13 @@ router.get("/api/data/:view_name/:keyvalue", async ctx => {
  * @apiName GetDataCount
  * @apiSampleRequest /api/datacount/:view_name
  */
-router.get("/api/datacount/:view_name", async ctx => {
-  ctx.checkParams("view_name").notEmpty("view_name is required");
+router.get('/api/datacount/:view_name', async (ctx) => {
+  ctx.checkParams('view_name').notEmpty('view_name is required');
   const datacnt = await Dbview.dataCount(ctx.params.view_name);
   console.log(datacnt[0].a);
   ctx.body = {
     ViewName: ctx.params.view_name,
-    Data: datacnt[0].a
+    Data: datacnt[0].a,
   };
 });
 
@@ -169,12 +165,12 @@ router.get("/api/datacount/:view_name", async ctx => {
  * @apiName GetMaxid
  * @apiSampleRequest /api/maxid/:view_name
  */
-router.get("/api/maxid/:view_name", async ctx => {
-  ctx.checkParams("view_name").notEmpty("view_name is required");
+router.get('/api/maxid/:view_name', async (ctx) => {
+  ctx.checkParams('view_name').notEmpty('view_name is required');
   const datacnt = await Dbview.maxid(ctx.params.view_name);
   ctx.body = {
     ViewName: ctx.params.view_name,
-    Data: datacnt[0].a
+    Data: datacnt[0].a,
   };
 });
 

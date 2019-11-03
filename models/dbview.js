@@ -8,17 +8,17 @@ exports.getDataListByWhere =
   (viewname, wherekey, wherevalue) => knex(viewname).whereRaw(wherekey, wherevalue);
 
 exports.getDataListByWhereDipan =
-  (viewname, wherekey, wherevalue, vinno) => knex(viewname).where('19_新车信息_底盘号', 'like', '%'+ vinno +'%').whereRaw(wherekey, wherevalue);
+  (viewname, wherekey, wherevalue, vinno) => knex(viewname).where('19_新车信息_底盘号', 'like', `%${vinno}%`).whereRaw(wherekey, wherevalue);
 
 exports.getDataListByWhereVinno =
-  (viewname, wherekey, wherevalue, vinno) => knex(viewname).where('Vinno', 'like', '%'+ vinno +'%').whereRaw(wherekey, wherevalue);
+  (viewname, wherekey, wherevalue, vinno) => knex(viewname).where('Vinno', 'like', `%${vinno}%`).whereRaw(wherekey, wherevalue);
 
 
 exports.getDataListByWhereType =
-  (viewname, wherekey, wherevalue, type) => knex(viewname).where('CarTypeCode', 'like', '%'+ type +'%').whereRaw(wherekey, wherevalue);
+  (viewname, wherekey, wherevalue, type) => knex(viewname).where('CarTypeCode', 'like', `%${type}%`).whereRaw(wherekey, wherevalue);
 
 exports.getDataListByWhereCustName =
-  (viewname, wherekey, wherevalue, name) => knex(viewname).where('CustName', 'like', '%'+ name +'%').whereRaw(wherekey, wherevalue);
+  (viewname, wherekey, wherevalue, name) => knex(viewname).where('CustName', 'like', `%${name}%`).whereRaw(wherekey, wherevalue);
 
 
 exports.getDataById = (viewname, keyvalue) => knex(viewname).where('Id', keyvalue).select(`${viewname}.*`);
@@ -46,6 +46,4 @@ exports.dataCount = tablename => knex(tablename).count('id as a');
 
 exports.maxid = tablename => knex(tablename).max('id as a');
 
-exports.callsp = (spname,paras) => knex.raw('call ' + spname + '(?)', paras).then(function(resp) { 
-    return resp;
- });
+exports.callsp = (spname, paras) => knex.raw(`call ${spname}(?)`, paras).then(resp => resp);
