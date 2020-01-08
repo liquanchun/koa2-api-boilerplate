@@ -89,14 +89,13 @@ router.post('/api/datalist/:view_name', async ctx => {
     };
   } else {
     let dataList = [];
-    if (view_name == 'vw_car_salebook') {
+    if (ctx.params.view_name == 'vw_car_salebook') {
       dataList = await Dbview.getDataListByWhereLimit(ctx.params.view_name, raw, values);
     } else {
       dataList = await Dbview.getDataListByWhere(ctx.params.view_name, raw, values);
     }
     ctx.body = {
       ViewName: ctx.params.view_name,
-
       Data: dataList
     };
   }
